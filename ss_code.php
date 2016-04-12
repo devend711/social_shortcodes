@@ -11,12 +11,11 @@
 Shortcode Template Functions
 */
 
-function twitter_share_shortcode( $atts, $label = null ) {
+function twitter_share_shortcode( $atts, $inner = null ) {
   $a = shortcode_atts( array(
     'url' => get_permalink(),
     'text' => null,
     'via' => null,
-    'label' => 'Tweet',
     'text-separator' => '+-'
   ), $atts );
 
@@ -25,23 +24,21 @@ function twitter_share_shortcode( $atts, $label = null ) {
     '&amp;url=' . $a['url'] . 
     ($a['via'] ? ('&amp;via=' . $a['via']) : null);
 
-  $title = ($label ?: $a['label'] ?: wp_title() );
-
   $markup = '
     <div class="ss-code-social-container ss-code-social-twitter">
       <a class="twitter-button ss-code-social-link" 
         rel="external nofollow" 
-        title="' . $title .
+        title="' . $a['text'] .
         '"href="http://twitter.com/share' . $twitter_params . 
         '"target="_blank">' . 
-        $title . 
+        $inner . 
       '</a>
     </div>';
 
   return $markup;
 }
 
-function fb_share_shortcode( $atts, $label = null ) {
+function fb_share_shortcode( $atts, $inner = null ) {
   $a = shortcode_atts( array(
     'url' => get_permalink(),
     'label' => 'Share on Facebook',
@@ -50,15 +47,13 @@ function fb_share_shortcode( $atts, $label = null ) {
   $fb_params = 
     '?u=' . $a['url'];
 
-  $title = ($label ?: $a['label'] ?: wp_title());
-
   $markup = '
     <div class="ss-code-social-container ss-code-social-facebook">
       <a class="ss-code-social-link" rel="external nofollow" 
-        title="' . $title .
+        title="' . $a['label'] .
         '"href="https://www.facebook.com/sharer/sharer.php' . $fb_params . 
         '"target="_blank">' . 
-        $title . 
+        $inner . 
       '</a>
     </div>';
 
