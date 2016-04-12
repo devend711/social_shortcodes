@@ -16,14 +16,16 @@ function twitter_share_shortcode( $atts, $inner = null ) {
     'url' => get_permalink(),
     'text' => null,
     'via' => null,
-    'title' => 'Share this on Twitter'
-    'text-separator' => ' +-'
+    'title' => 'Share this on Twitter',
+    'text-separator' => ' -'
   ), $atts );
 
+  $text = ($a['text'] ? (urlencode($a['text']) . urlencode($a['text-separator'])) : null);
+
   $twitter_params = 
-    '?text=' . urlencode($a['text']) . urlencode($a['text-separator']) .
+    '?text=' . $text .
     '&amp;url=' . urlencode($a['url']) . 
-    ($a['via'] ? ('&amp;via=' . urlencode($a['via']) : null);
+    ($a['via'] ? ('&amp;via=' . urlencode($a['via'])) : null);
 
   $markup = '
     <div class="ss-code-social-container ss-code-social-twitter">
