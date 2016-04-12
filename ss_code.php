@@ -1,10 +1,10 @@
 <?php
 /*
 * Plugin Name: Social Shortcodes
-* Description: Bare-bones social sharing links
+* Description: Bare-bones social sharing links.
 * Version: 1.0
-* Author: Deven
-* Author URI: devendayal.com
+* Author: devend711
+* Author URI: https://github.com/devend711/social_shortcodes
 */
 
 /*
