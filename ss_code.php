@@ -20,17 +20,19 @@ function twitter_share_shortcode( $atts, $inner = null ) {
     'text-separator' => ' -'
   ), $atts );
 
-  $text = ($a['text'] ? (urlencode($a['text']) . urlencode($a['text-separator'])) : null);
+  $a = array_map('urlencode', $a);
+
+  $text = ($a['text'] ? ($a['text'] . $a['text-separator']) : null);
 
   $twitter_params = 
     '?text=' . $text .
-    '&amp;url=' . urlencode($a['url']) . 
-    ($a['via'] ? ('&amp;via=' . urlencode($a['via'])) : null);
+    '&amp;url=' . $a['url'] . 
+    ($a['via'] ? ('&amp;via=' . $a['via']) : null);
 
   $markup = '
     <div class="ss-code-social-container ss-code-social-twitter">
       <a class="twitter-button ss-code-social-link" 
-        rel="external nofollow" title="' . urlencode($a['title']) .
+        rel="external nofollow" title="' . $a['title'] .
         '"href="http://twitter.com/share' . $twitter_params . 
         '"target="_blank">' . 
         $inner . 
@@ -46,13 +48,14 @@ function fb_share_shortcode( $atts, $inner = null ) {
     'label' => 'Share on Facebook',
   ), $atts );
 
-  $fb_params = 
-    '?u=' . urlencode($a['url']);
+  $a = array_map('urlencode', $a);
+
+  $fb_params = '?u=' . $a['url'];
 
   $markup = '
     <div class="ss-code-social-container ss-code-social-facebook">
       <a class="ss-code-social-link" rel="external nofollow" 
-        title="' . urlencode($a['label']) .
+        title="' . $a['label'] .
         '"href="https://www.facebook.com/sharer/sharer.php' . $fb_params . 
         '"target="_blank">' . 
         $inner . 
