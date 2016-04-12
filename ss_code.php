@@ -16,11 +16,12 @@ function twitter_share_shortcode( $atts, $label = null ) {
     'url' => get_permalink(),
     'text' => null,
     'via' => null,
-    'label' => 'Tweet'
+    'label' => 'Tweet',
+    'text-separator' => '+-'
   ), $atts );
 
   $twitter_params = 
-    '?text=' . $a['text'] . '+-' .
+    '?text=' . $a['text'] . $a['text-separator'] .
     '&amp;url=' . $a['url'] . 
     ($a['via'] ? ('&amp;via=' . $a['via']) : null);
 
@@ -28,16 +29,16 @@ function twitter_share_shortcode( $atts, $label = null ) {
 
   $markup = '
     <div class="ss-code-social-container ss-code-social-twitter">
-        <a class="twitter-button ss-code-social-link" 
-          rel="external nofollow" 
-          title="' . $title .
-          '"href="http://twitter.com/share' . $twitter_params . 
-          '"target="_blank">' . 
-          $title . 
-          '</a>
+      <a class="twitter-button ss-code-social-link" 
+        rel="external nofollow" 
+        title="' . $title .
+        '"href="http://twitter.com/share' . $twitter_params . 
+        '"target="_blank">' . 
+        $title . 
+      '</a>
     </div>';
 
-  echo $markup;
+  return $markup;
 }
 
 function fb_share_shortcode( $atts, $label = null ) {
@@ -53,15 +54,15 @@ function fb_share_shortcode( $atts, $label = null ) {
 
   $markup = '
     <div class="ss-code-social-container ss-code-social-facebook">
-        <a class="ss-code-social-link" rel="external nofollow" 
-          title="' . $title .
-          '"href="https://www.facebook.com/sharer/sharer.php' . $fb_params . 
-          '"target="_blank">' . 
-          $title . 
-          '</a>
+      <a class="ss-code-social-link" rel="external nofollow" 
+        title="' . $title .
+        '"href="https://www.facebook.com/sharer/sharer.php' . $fb_params . 
+        '"target="_blank">' . 
+        $title . 
+      '</a>
     </div>';
 
-  echo $markup;
+  return $markup;
 }
 
 /*
