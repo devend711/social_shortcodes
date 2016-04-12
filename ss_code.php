@@ -1,7 +1,7 @@
 <?php
 /*
 * Plugin Name: Social Shortcodes
-* Description: Easily add simple share icons.
+* Description: Bare-bones social sharing links
 * Version: 1.0
 * Author: Deven
 * Author URI: devendayal.com
@@ -11,7 +11,7 @@
 Shortcode Template Functions
 */
 
-function twitter_share_shortcode( $atts, $label = 'Tweet' ) {
+function twitter_share_shortcode( $atts, $label = null ) {
   $a = shortcode_atts( array(
     'url' => get_permalink(),
     'text' => null,
@@ -24,14 +24,38 @@ function twitter_share_shortcode( $atts, $label = 'Tweet' ) {
     '&amp;url=' . $a['url'] . 
     ($a['via'] ? ('&amp;via=' . $a['via']) : null);
 
-  $title = ($a['label'] ?: $label);
+  $title = ($label ?: $a['label'] ?: wp_title() );
 
   $markup = '
-    <div class="ss-code-social ss-code-social-twitter">
-        <a class="twitter-button" 
+    <div class="ss-code-social-container ss-code-social-twitter">
+        <a class="twitter-button ss-code-social-link" 
           rel="external nofollow" 
-          title="<?php $title ?>" 
-          href="http://twitter.com/share' . $twitter_params . 
+          title="' . $title .
+          '"href="http://twitter.com/share' . $twitter_params . 
+          '"target="_blank">' . 
+          $title . 
+          '</a>
+    </div>';
+
+  echo $markup;
+}
+
+function fb_share_shortcode( $atts, $label = null ) {
+  $a = shortcode_atts( array(
+    'url' => get_permalink(),
+    'label' => 'Share on Facebook',
+  ), $atts );
+
+  $fb_params = 
+    '?u=' . $a['url'];
+
+  $title = ($label ?: $a['label'] ?: wp_title());
+
+  $markup = '
+    <div class="ss-code-social-container ss-code-social-facebook">
+        <a class="ss-code-social-link" rel="external nofollow" 
+          title="' . $title .
+          '"href="https://www.facebook.com/sharer/sharer.php' . $fb_params . 
           '"target="_blank">' . 
           $title . 
           '</a>
@@ -46,12 +70,14 @@ Setup Stuff
 
 function add_ss_code_plugin() {
   if ( !is_admin() ) {
-    wp_enqueue_script( 'ss_code', plugins_url('js/ss_code.js', __FILE__), array() );
+    // enqueue in footer
+    wp_enqueue_script( 'ss_code', plugins_url('js/ss_code.js', __FILE__), array(), false, true);
   }
 }
 add_action( 'init', 'add_ss_code_plugin' );
 
 // add shortcodes
-add_shortcode('twitter_share_custom', 'twitter_share_shortcode');
+add_shortcode( 'twitter_share_custom', 'twitter_share_shortcode' );
+add_shortcode( 'fb_share_custom', 'fb_share_shortcode' );
 
 ?>
