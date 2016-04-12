@@ -16,19 +16,19 @@ function twitter_share_shortcode( $atts, $inner = null ) {
     'url' => get_permalink(),
     'text' => null,
     'via' => null,
-    'text-separator' => '+-'
+    'title' => 'Share this on Twitter'
+    'text-separator' => ' +-'
   ), $atts );
 
   $twitter_params = 
-    '?text=' . $a['text'] . $a['text-separator'] .
-    '&amp;url=' . $a['url'] . 
-    ($a['via'] ? ('&amp;via=' . $a['via']) : null);
+    '?text=' . urlencode($a['text']) . urlencode($a['text-separator']) .
+    '&amp;url=' . urlencode($a['url']) . 
+    ($a['via'] ? ('&amp;via=' . urlencode($a['via']) : null);
 
   $markup = '
     <div class="ss-code-social-container ss-code-social-twitter">
       <a class="twitter-button ss-code-social-link" 
-        rel="external nofollow" 
-        title="' . $a['text'] .
+        rel="external nofollow" title="' . urlencode($a['title']) .
         '"href="http://twitter.com/share' . $twitter_params . 
         '"target="_blank">' . 
         $inner . 
@@ -45,12 +45,12 @@ function fb_share_shortcode( $atts, $inner = null ) {
   ), $atts );
 
   $fb_params = 
-    '?u=' . $a['url'];
+    '?u=' . urlencode($a['url']);
 
   $markup = '
     <div class="ss-code-social-container ss-code-social-facebook">
       <a class="ss-code-social-link" rel="external nofollow" 
-        title="' . $a['label'] .
+        title="' . urlencode($a['label']) .
         '"href="https://www.facebook.com/sharer/sharer.php' . $fb_params . 
         '"target="_blank">' . 
         $inner . 
