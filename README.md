@@ -10,15 +10,15 @@
 [/facebook_share_custom]
 ```
 
-##### Facebook
+#### Facebook
 
-###### Options/Defaults
+##### Options/Defaults
 - `url` => `get_permalink()`
 - `label` => 'Share on Facebook'
 
-##### Twitter
+#### Twitter
 
-###### Options/Defaults
+##### Options/Defaults
 - `url` => `get_permalink()`
 - `text` => `null`
 - `via` => `null`
