@@ -29,6 +29,8 @@ function twitter_share_shortcode( $atts, $inner = null ) {
     '&amp;url=' . $a['url'] . 
     ($a['via'] ? ('&amp;via=' . $a['via']) : null);
 
+  $twitter_params = ltrim($twitter_params);
+
   $markup = '
     <div class="ss-code-social-container ss-code-social-twitter">
       <a class="twitter-button ss-code-social-link" 
